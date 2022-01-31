@@ -1,9 +1,13 @@
 #!/bin/bash
 #title          : start_papermc_server.sh
 #description    : Start a stopped PaperMC Docker container within a named
-#                 screen session. Returns 0 if the container is detected in
-#                 being in a 'running' state within a set number of retries. 1
-#                 is returned if the number of retries is exhausted.
+#                 screen session. Returns:
+#                   - 0: The container is detected in being in a 'running'
+#                        state within a set number of retries.
+#                   - 1: The number of retries when checking the status of the
+#                        started container has been exhausted.
+#                   - 3: The name for the container provided in argument 2 does
+#                        refer to a container that exists on the host.
 #author         : Jarrod N. Bakker
 #date           : 13-01-2022
 #version        : 1.0.0
@@ -21,8 +25,15 @@ log_info() {
     echo -e "`date '+%Y-%m-%d %H:%M:%S'` INFO $1"
 }
 
-readonly SCREEN_NAME="papermc"
-readonly CONTAINER="papermc-1.18.1-140-1"
+readonly SCREEN_NAME="$1"
+readonly CONTAINER="$2"
+
+docker stats --no-stream "$CONTAINER" > /dev/null 2>&1
+cmd_res=$?
+if [ $cmd_res -ne 0 ]; then
+    log_fatal "Docker container $CONTAINER does not exist! Exiting..."
+    exit 2
+fi
 
 printf "`date '+%Y-%m-%d %H:%M:%S'` INFO Starting container $CONTAINER in \
 named screen session $SCREEN_NAME."
