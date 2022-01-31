@@ -44,4 +44,4 @@ while [ "$CON_STATE" != "running" ]; do
     ((++retry))
 done
 echo " OK"
-log_info "Container $CONTAINER is now running"
+log_info "Container $CONTAINER is now running."
