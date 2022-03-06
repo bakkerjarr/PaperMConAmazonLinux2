@@ -6,12 +6,15 @@
 #                        state within a set number of retries.
 #                   - 1: The number of retries when checking the status of the
 #                        started container has been exhausted.
+#                   - 2: The provided name for the new screen session is
+#                        already being used. Note that screen can handle this
+#                        but this script does not want to.
 #                   - 3: The name for the container provided in argument 2 does
-#                        refer to a container that exists on the host.
+#                        not refer to a container that exists on the host.
 #author         : Jarrod N. Bakker
 #date           : 13-01-2022
 #version        : 1.0.0
-#usage          : start_papermc_server.sh
+#usage          : start_papermc_server.sh SCREEN_NAME CONTAINER_NAME
 #history        : 13-01-2022 - jnb - Initial version complete.
 #==============================================================================
 PATH=/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin
@@ -28,11 +31,19 @@ log_info() {
 readonly SCREEN_NAME="$1"
 readonly CONTAINER="$2"
 
+screen -ls "$SCREEN_NAME" | grep -w "$SCREEN_NAME" > /dev/null 2>&1
+cmd_res=$?
+if [ $cmd_res -eq 0 ]; then
+    log_fatal "A screen session called '$SCREEN_NAME' already exists! \
+Exiting..."
+    exit 2
+fi
+
 docker stats --no-stream "$CONTAINER" > /dev/null 2>&1
 cmd_res=$?
 if [ $cmd_res -ne 0 ]; then
     log_fatal "Docker container $CONTAINER does not exist! Exiting..."
-    exit 2
+    exit 3
 fi
 
 printf "`date '+%Y-%m-%d %H:%M:%S'` INFO Starting container $CONTAINER in \
