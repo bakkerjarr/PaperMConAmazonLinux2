@@ -8,7 +8,7 @@ igw_nfpmc_tag_name = "igw-apse2-p-nullrefpapermc"
 # Public subnets
 subnet_pub_nfpmc_az       = "ap-southeast-2a"
 subnet_pub_nfpmc_cidr     = "10.0.0.0/28"
-subnet_pub_nfpmc_tag_name = "subnet-pub-apse2-p-nullrefpapermc01"
+subnet_pub_nfpmc_tag_name = "subnet-apse2-p-pub-nullrefpapermc01"
 
 # Route tables
 rtbl_vpc_nfpmc_default_tag_name = "rtbl-apse2-p-vpc-nfpmc-default"
@@ -16,11 +16,11 @@ rtbl_pub_nfpmc_tag_name         = "rtbl-apse2-p-pub-nfpmc"
 
 # Network ACLs
 nacl_vpc_nfpmc_default_tag_name = "nacl-apse2-p-vpc-nfpmc-default"
-nacl_pub_nfpmc_tag_name         = "nacl-apse2-p-pub-nfpmc"
+nacl_pub_nfpmc_tag_name         = "nacl-apse2-p-pub-nullrefpapermc01"
 
 # Security Groups
 secgrp_vpc_nfpmc_default_tag_name = "secgrp-apse2-p-vpc-nfpmc-default"
-secgrp_pub_nfpmc_tag_name         = "secgrp-apse2-p-nfpmc-default"
+secgrp_pub_nfpmc_tag_name         = "secgrp-apse2-p-nullrefpapermc01"
 secgrp_pub_nfpmc_description      = "Permit incoming traffic to the Null Reference PaperMC server."
 
 # Elastic IPs
