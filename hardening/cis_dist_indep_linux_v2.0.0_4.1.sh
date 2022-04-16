@@ -19,7 +19,7 @@ benchmark."
 
 echo "4.1.4 Ensure auditing for processes that start prior to auditd is enabled"
 cp -a /etc/default/grub /etc/default/grub.pre-audit_enabled
-sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=\"console=ttyS0,115200n8 console=tty0 selinux=1 security=selinux enforcing=1 /GRUB_CMDLINE_LINUX_DEFAULT=\"console=ttyS0,115200n8 console=tty0 selinux=1 security=selinux enforcing=1 audit=1 /g' /etc/default/grub
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT=\"console=tty0 console=ttyS0,115200n8 selinux=1 security=selinux enforcing=1 /GRUB_CMDLINE_LINUX_DEFAULT=\"console=tty0 console=ttyS0,115200n8 selinux=1 security=selinux enforcing=1 audit=1 /g' /etc/default/grub
 grub2-mkconfig -o /etc/grub2.cfg
 
 echo "4.1.5 Ensure events that modify date and time information are collected"
