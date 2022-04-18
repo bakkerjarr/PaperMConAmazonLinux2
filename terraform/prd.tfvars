@@ -41,7 +41,7 @@ ebs_nullrefpapermc01_data01_tag_name   = "ebs-apse2-p-nullrefpapermc01-data01"
 # EC2
 ec2_nullrefpapermc01_ami             = "ami-059af0b76ba105e7e" # Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type (64-bit x86)
 ec2_nullrefpapermc01_az              = "ap-southeast-2a"
-ec2_nullrefpapermc01_instance_type   = "t3.medium"
+ec2_nullrefpapermc01_instance_type   = "t3.small"
 ec2_nullrefpapermc01_rbd_iops        = "3000"
 ec2_nullrefpapermc01_rbd_kms_key_id  = "arn:aws:kms:ap-southeast-2:536334314727:key/faec0620-c76a-401b-aab6-cd755300a42c"
 ec2_nullrefpapermc01_rbd_tag_name    = "ebs-apse2-p-nullrefpapermc01-root-block-device"
