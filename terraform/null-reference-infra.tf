@@ -246,15 +246,15 @@ resource "aws_instance" "ec2_nullrefpapermc01" {
 locals {
   nwaclrules_pub_nfpmc_egress = [
     { rule_no : 100, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 1024, to_port : 65535, cidr_block : "0.0.0.0/0", action : "allow" },
-    { rule_no : 200, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 80, to_port : 80, cidr_block : "0.0.0.0/0", action : "allow" }, # Necessary for downloading software
+    { rule_no : 200, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 80, to_port : 80, cidr_block : "0.0.0.0/0", action : "allow" },   # Necessary for downloading software
     { rule_no : 201, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 443, to_port : 443, cidr_block : "0.0.0.0/0", action : "allow" }, # Necessary for downloading software
-    { rule_no : 300, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 22, to_port : 22, cidr_block : "0.0.0.0/0", action : "deny" } # Included to act as a 'switch' should the host need to act as an SSH client at some point
+    { rule_no : 300, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 22, to_port : 22, cidr_block : "0.0.0.0/0", action : "deny" }     # Included to act as a 'switch' should the host need to act as an SSH client at some point
   ]
   nwaclrules_pub_nfpmc_ingress = [
     { rule_no : 20, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 22, to_port : 22, cidr_block : "0.0.0.0/0", action : "allow" },
     { rule_no : 100, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 25565, to_port : 25565, cidr_block : "0.0.0.0/0", action : "allow" },
     { rule_no : 101, protocol : "udp", icmp_type : -1, icmp_code : -1, from_port : 25565, to_port : 25565, cidr_block : "0.0.0.0/0", action : "allow" },
-    { rule_no : 200, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 1024, to_port : 65535, cidr_block : "0.0.0.0/0", action : "allow" }  # Necessary for downloading software
+    { rule_no : 200, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 1024, to_port : 65535, cidr_block : "0.0.0.0/0", action : "allow" } # Necessary for downloading software
   ]
   # Don't allow inbound SSH at the Security Group level. If SSH access is required then manually create a rule via the console.
   secgrprules_pub_nfpmc_ingress = [
