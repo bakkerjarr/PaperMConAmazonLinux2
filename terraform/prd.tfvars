@@ -28,7 +28,7 @@ eip_nullrefpapermc01_tag_name = "ec2-apse2-p-nullrefpapermc01"
 
 # Key pairs
 ec2kp_nullrefpapermc01_key_name   = "ec2kp-apse2-p-nullrefpapermc01"
-ec2kp_nullrefpapermc01_public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPGsmqbYpRYA5nmH8tWwovHoniXbxg1DKSwvvQ6ankCK jarrodbakkernfpmc"
+ec2kp_nullrefpapermc01_public_key = ""
 
 # EBS volumes
 ebs_nullrefpapermc01_data01_iops       = "3000"
