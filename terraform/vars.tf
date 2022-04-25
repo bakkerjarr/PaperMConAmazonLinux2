@@ -1,3 +1,10 @@
+# IAM
+variable "iampolicy_lambda_ec2_start_stop_description" { type = string }
+variable "iampolicy_lambda_ec2_start_stop_tag_name" { type = string }
+variable "iampolicy_attach_iamrole_lambda_ec2_start_stop_name" { type = string }
+variable "iamrole_lamba_ec2_start_stop_description" { type = string }
+variable "iamrole_lamba_ec2_start_stop_tag_name" { type = string }
+
 # VPCs
 variable "vpc_nfpmc_cidr" { type = string }
 variable "vpc_nfpmc_tag_name" { type = string }
@@ -49,4 +56,17 @@ variable "ec2_nullrefpapermc01_rbd_throughput" { type = string }
 variable "ec2_nullrefpapermc01_rbd_volume_size" { type = string }
 variable "ec2_nullrefpapermc01_rbd_volume_type" { type = string }
 variable "ec2_nullrefpapermc01_tag_name" { type = string }
+variable "ec2_nullrefpapermc01_tag_lambda_nfpmc_auto" { type = string }
 variable "ec2_nullrefpapermc01_tag_os_disto" { type = string }
+
+# Lambda
+variable "lambda_nfpmc_ec2_start_env_key" { type = string }
+variable "lambda_nfpmc_ec2_start_env_value" { type = string }
+variable "lambda_nfpmc_ec2_start_env_region" { type = string }
+variable "lambda_nfpmc_ec2_start_runtime" { type = string }
+variable "lambda_nfpmc_ec2_start_tag_name" { type = string }
+variable "lambda_nfpmc_ec2_stop_env_key" { type = string }
+variable "lambda_nfpmc_ec2_stop_env_value" { type = string }
+variable "lambda_nfpmc_ec2_stop_env_region" { type = string }
+variable "lambda_nfpmc_ec2_stop_runtime" { type = string }
+variable "lambda_nfpmc_ec2_stop_tag_name" { type = string }

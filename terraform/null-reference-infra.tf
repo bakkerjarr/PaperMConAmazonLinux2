@@ -1,3 +1,63 @@
+# IAM
+resource "aws_iam_policy" "iampolicy_lambda_ec2_start_stop" {
+  name        = var.iampolicy_lambda_ec2_start_stop_tag_name
+  description = var.iampolicy_lambda_ec2_start_stop_description
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "VisualEditor0"
+        Effect = "Allow"
+        Action = [
+          "ec2:DescribeInstances"
+        ]
+        Resource = "*"
+      },
+      {
+        Sid    = "VisualEditor1"
+        Effect = "Allow"
+        Action = [
+          "ec2:StartInstances",
+          "ec2:StopInstances"
+        ]
+        Resource = "arn:aws:ec2:*:536334314727:instance/*"
+      },
+    ]
+  })
+
+  tags = {
+    Name = var.iampolicy_lambda_ec2_start_stop_tag_name
+  }
+}
+resource "aws_iam_role" "iamrole_lambda_ec2_start_stop" {
+  name        = var.iamrole_lamba_ec2_start_stop_tag_name
+  description = var.iamrole_lamba_ec2_start_stop_description
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "VisualEditor0"
+        Effect = "Allow"
+        Action = "sts:AssumeRole"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+
+  tags = {
+    Name = var.iamrole_lamba_ec2_start_stop_tag_name
+  }
+}
+resource "aws_iam_policy_attachment" "iampolicy_attach_iamrole_lambda_ec2_start_stop" {
+  name       = var.iampolicy_attach_iamrole_lambda_ec2_start_stop_name
+  roles      = [aws_iam_role.iamrole_lambda_ec2_start_stop.name]
+  policy_arn = aws_iam_policy.iampolicy_lambda_ec2_start_stop.arn
+}
+
 # VPCs
 resource "aws_vpc" "vpc_nfpmc" {
   cidr_block       = var.vpc_nfpmc_cidr
@@ -216,6 +276,12 @@ resource "aws_instance" "ec2_nullrefpapermc01" {
   availability_zone = var.ec2_nullrefpapermc01_az
   instance_type     = var.ec2_nullrefpapermc01_instance_type
   key_name          = var.ec2kp_nullrefpapermc01_key_name
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_put_response_hop_limit = 1
+    http_tokens                 = "required"
+    instance_metadata_tags      = "disabled"
+  }
   root_block_device {
     delete_on_termination = true
     encrypted             = true
@@ -237,10 +303,76 @@ resource "aws_instance" "ec2_nullrefpapermc01" {
     aws_key_pair.ec2kp_nullrefpapermc01
   ]
   tags = {
-    Name     = var.ec2_nullrefpapermc01_tag_name
-    OsDistro = var.ec2_nullrefpapermc01_tag_os_disto
+    Name            = var.ec2_nullrefpapermc01_tag_name
+    OsDistro        = var.ec2_nullrefpapermc01_tag_os_disto
+    LambdaNfpmcAuto = var.ec2_nullrefpapermc01_tag_lambda_nfpmc_auto
   }
 }
+
+# Lambda
+data "archive_file" "lambda_nfpmc_ec2_start" {
+  type        = "zip"
+  source_file = "${path.module}/aws_lambda/lambda_nfpmc_ec2_start.py"
+  output_path = "${path.module}/aws_lambda/zips/lambda_nfpmc_ec2_start.zip"
+}
+
+data "archive_file" "lambda_nfpmc_ec2_stop" {
+  type        = "zip"
+  source_file = "${path.module}/aws_lambda/lambda_nfpmc_ec2_stop.py"
+  output_path = "${path.module}/aws_lambda/zips/lambda_nfpmc_ec2_stop.zip"
+}
+
+resource "aws_lambda_function" "lambda_nfpmc_ec2_start" {
+  architectures = ["x86_64"]
+  environment {
+    variables = {
+      KEY    = var.lambda_nfpmc_ec2_start_env_key
+      VALUE  = var.lambda_nfpmc_ec2_start_env_value
+      REGION = var.lambda_nfpmc_ec2_start_env_region
+    }
+  }
+  filename         = "${path.module}/aws_lambda/zips/lambda_nfpmc_ec2_start.zip"
+  function_name    = var.lambda_nfpmc_ec2_start_tag_name
+  handler          = "lambda_nfpmc_ec2_start.lambda_handler"
+  role             = aws_iam_role.iamrole_lambda_ec2_start_stop.arn
+  runtime          = var.lambda_nfpmc_ec2_start_runtime
+  source_code_hash = data.archive_file.lambda_nfpmc_ec2_start.output_base64sha256
+
+  depends_on = [
+    aws_iam_policy_attachment.iampolicy_attach_iamrole_lambda_ec2_start_stop,
+    data.archive_file.lambda_nfpmc_ec2_start
+  ]
+  tags = {
+    Name = var.lambda_nfpmc_ec2_start_tag_name
+  }
+}
+
+resource "aws_lambda_function" "lambda_nfpmc_ec2_stop" {
+  architectures = ["x86_64"]
+  environment {
+    variables = {
+      KEY    = var.lambda_nfpmc_ec2_stop_env_key
+      VALUE  = var.lambda_nfpmc_ec2_stop_env_value
+      REGION = var.lambda_nfpmc_ec2_stop_env_region
+    }
+  }
+  filename         = "${path.module}/aws_lambda/zips/lambda_nfpmc_ec2_stop.zip"
+  function_name    = var.lambda_nfpmc_ec2_stop_tag_name
+  handler          = "lambda_nfpmc_ec2_stop.lambda_handler"
+  role             = aws_iam_role.iamrole_lambda_ec2_start_stop.arn
+  runtime          = var.lambda_nfpmc_ec2_stop_runtime
+  source_code_hash = data.archive_file.lambda_nfpmc_ec2_stop.output_base64sha256
+
+  depends_on = [
+    aws_iam_policy_attachment.iampolicy_attach_iamrole_lambda_ec2_start_stop,
+    data.archive_file.lambda_nfpmc_ec2_stop
+  ]
+  tags = {
+    Name = var.lambda_nfpmc_ec2_stop_tag_name
+  }
+}
+
+# aws_lambda_permission resource to allow EventBridge to use Lambda functions, apparently
 
 # Locally defined variables
 locals {
