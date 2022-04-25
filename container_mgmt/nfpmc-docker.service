@@ -1,0 +1,16 @@
+[Unit]
+Description=Null Reference PaperMC server in a Docker container: papermc-1.18.2-311-1
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=forking
+User=ec2-user
+Group=ec2-user
+TimeoutStartSec=60
+ExecStart=/usr/local/bin/start_papermc_server.sh papermc-1.18.2-311-1 papermc-1.18.2-311-1
+ExecStop=/usr/local/bin/stop_papermc_server.sh papermc-1.18.2-311-1 papermc-1.18.2-311-1
+TimeoutStopSec=360
+
+[Install]
+WantedBy=multi-user.target
