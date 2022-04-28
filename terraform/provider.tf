@@ -1,4 +1,12 @@
 terraform {
+  cloud {
+    organization = "nullreference"
+
+    workspaces {
+      name = "nullreference-papermc"
+    }
+  }
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
