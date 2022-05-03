@@ -372,21 +372,170 @@ resource "aws_lambda_function" "lambda_nfpmc_ec2_stop" {
   }
 }
 
-# aws_lambda_permission resource to allow EventBridge to use Lambda functions, apparently
+# EventBridge
+resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_start_monthu" {
+  name                = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_tag_name
+  description         = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_description
+  schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_sch_exp
+  event_bus_name      = "default"
+  is_enabled          = "true"
+
+  tags = {
+    Name = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_tag_name
+  }
+}
+resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_start_monthu" {
+  rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_monthu.name
+  arn            = aws_lambda_function.lambda_nfpmc_ec2_start.arn
+  event_bus_name = "default"
+  target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_start_monthu_target_id
+}
+resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_start_monthu" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda_nfpmc_ec2_start.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_monthu.arn
+  statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_tag_name}"
+}
+
+resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_start_fri" {
+  name                = var.evntbrdgrule_lambda_nfpmc_ec2_start_fri_tag_name
+  description         = var.evntbrdgrule_lambda_nfpmc_ec2_start_fri_description
+  schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_start_fri_sch_exp
+  event_bus_name      = "default"
+  is_enabled          = "true"
+
+  tags = {
+    Name = var.evntbrdgrule_lambda_nfpmc_ec2_start_fri_tag_name
+  }
+}
+resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_start_fri" {
+  rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_fri.name
+  arn            = aws_lambda_function.lambda_nfpmc_ec2_start.arn
+  event_bus_name = "default"
+  target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_start_fri_target_id
+}
+resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_start_fri" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda_nfpmc_ec2_start.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_fri.arn
+  statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_start_fri_tag_name}"
+}
+
+resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_start_satsun" {
+  name                = var.evntbrdgrule_lambda_nfpmc_ec2_start_satsun_tag_name
+  description         = var.evntbrdgrule_lambda_nfpmc_ec2_start_satsun_description
+  schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_start_satsun_sch_exp
+  event_bus_name      = "default"
+  is_enabled          = "true"
+
+  tags = {
+    Name = var.evntbrdgrule_lambda_nfpmc_ec2_start_satsun_tag_name
+  }
+}
+resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_start_satsun" {
+  rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_satsun.name
+  arn            = aws_lambda_function.lambda_nfpmc_ec2_start.arn
+  event_bus_name = "default"
+  target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_start_satsun_target_id
+}
+resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_start_satsun" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda_nfpmc_ec2_start.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_satsun.arn
+  statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_start_satsun_tag_name}"
+}
+
+resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_stop_monthu" {
+  name                = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_tag_name
+  description         = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_description
+  schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_sch_exp
+  event_bus_name      = "default"
+  is_enabled          = "true"
+
+  tags = {
+    Name = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_tag_name
+  }
+}
+resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_stop_monthu" {
+  rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu.name
+  arn            = aws_lambda_function.lambda_nfpmc_ec2_stop.arn
+  event_bus_name = "default"
+  target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_stop_monthu_target_id
+}
+resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_stop_monthu" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda_nfpmc_ec2_stop.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu.arn
+  statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_tag_name}"
+}
+
+resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_stop_fri" {
+  name                = var.evntbrdgrule_lambda_nfpmc_ec2_stop_fri_tag_name
+  description         = var.evntbrdgrule_lambda_nfpmc_ec2_stop_fri_description
+  schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_stop_fri_sch_exp
+  event_bus_name      = "default"
+  is_enabled          = "true"
+
+  tags = {
+    Name = var.evntbrdgrule_lambda_nfpmc_ec2_stop_fri_tag_name
+  }
+}
+resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_stop_fri" {
+  rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_fri.name
+  arn            = aws_lambda_function.lambda_nfpmc_ec2_stop.arn
+  event_bus_name = "default"
+  target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_stop_fri_target_id
+}
+resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_stop_fri" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda_nfpmc_ec2_stop.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_fri.arn
+  statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_stop_fri_tag_name}"
+}
+
+resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_stop_satsun" {
+  name                = var.evntbrdgrule_lambda_nfpmc_ec2_stop_satsun_tag_name
+  description         = var.evntbrdgrule_lambda_nfpmc_ec2_stop_satsun_description
+  schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_stop_satsun_sch_exp
+  event_bus_name      = "default"
+  is_enabled          = "true"
+
+  tags = {
+    Name = var.evntbrdgrule_lambda_nfpmc_ec2_stop_satsun_tag_name
+  }
+}
+resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_stop_satsun" {
+  rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_satsun.name
+  arn            = aws_lambda_function.lambda_nfpmc_ec2_stop.arn
+  event_bus_name = "default"
+  target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_stop_satsun_target_id
+}
+resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_stop_satsun" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda_nfpmc_ec2_stop.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_satsun.arn
+  statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_stop_satsun_tag_name}"
+}
 
 # Locally defined variables
 locals {
   nwaclrules_pub_nfpmc_egress = [
-    { rule_no : 100, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 1024, to_port : 65535, cidr_block : "0.0.0.0/0", action : "allow" },
-    { rule_no : 200, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 80, to_port : 80, cidr_block : "0.0.0.0/0", action : "allow" },   # Necessary for downloading software
-    { rule_no : 201, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 443, to_port : 443, cidr_block : "0.0.0.0/0", action : "allow" }, # Necessary for downloading software
-    { rule_no : 300, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 22, to_port : 22, cidr_block : "0.0.0.0/0", action : "deny" }     # Included to act as a 'switch' should the host need to act as an SSH client at some point
+    { rule_no : 100, protocol : "tcp", icmp_type : 0, icmp_code : 0, from_port : 1024, to_port : 65535, cidr_block : "0.0.0.0/0", action : "allow" },
+    { rule_no : 200, protocol : "tcp", icmp_type : 0, icmp_code : 0, from_port : 80, to_port : 80, cidr_block : "0.0.0.0/0", action : "allow" },   # Necessary for downloading software
+    { rule_no : 201, protocol : "tcp", icmp_type : 0, icmp_code : 0, from_port : 443, to_port : 443, cidr_block : "0.0.0.0/0", action : "allow" }, # Necessary for downloading software
+    { rule_no : 300, protocol : "tcp", icmp_type : 0, icmp_code : 0, from_port : 22, to_port : 22, cidr_block : "0.0.0.0/0", action : "deny" }     # Included to act as a 'switch' should the host need to act as an SSH client at some point
   ]
   nwaclrules_pub_nfpmc_ingress = [
-    { rule_no : 20, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 22, to_port : 22, cidr_block : "0.0.0.0/0", action : "allow" },
-    { rule_no : 100, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 25565, to_port : 25565, cidr_block : "0.0.0.0/0", action : "allow" },
-    { rule_no : 101, protocol : "udp", icmp_type : -1, icmp_code : -1, from_port : 25565, to_port : 25565, cidr_block : "0.0.0.0/0", action : "allow" },
-    { rule_no : 200, protocol : "tcp", icmp_type : -1, icmp_code : -1, from_port : 1024, to_port : 65535, cidr_block : "0.0.0.0/0", action : "allow" } # Necessary for downloading software
+    { rule_no : 20, protocol : "tcp", icmp_type : 0, icmp_code : 0, from_port : 22, to_port : 22, cidr_block : "0.0.0.0/0", action : "allow" },
+    { rule_no : 100, protocol : "tcp", icmp_type : 0, icmp_code : 0, from_port : 25565, to_port : 25565, cidr_block : "0.0.0.0/0", action : "allow" },
+    { rule_no : 101, protocol : "udp", icmp_type : 0, icmp_code : 0, from_port : 25565, to_port : 25565, cidr_block : "0.0.0.0/0", action : "allow" },
+    { rule_no : 200, protocol : "tcp", icmp_type : 0, icmp_code : 0, from_port : 1024, to_port : 65535, cidr_block : "0.0.0.0/0", action : "allow" } # Necessary for downloading software
   ]
   # Don't allow inbound SSH at the Security Group level. If SSH access is required then manually create a rule via the console.
   secgrprules_pub_nfpmc_ingress = [

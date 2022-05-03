@@ -3,7 +3,7 @@ terraform {
     organization = "nullreference"
 
     workspaces {
-      name = "nullreference-papermc"
+      tags = ["nullreference-papermc"]
     }
   }
 
