@@ -8,8 +8,8 @@ Type=forking
 User=ec2-user
 Group=ec2-user
 TimeoutStartSec=60
-ExecStart=/usr/local/bin/start_papermc_server.sh papermc-1.18.2-317-1 papermc-1.18.2-317-1
-ExecStop=/usr/local/bin/stop_papermc_server.sh papermc-1.18.2-317-1 papermc-1.18.2-317-1
+ExecStart=/usr/local/bin/start_papermc_server.sh papermc-1.18.2-333-1 papermc-1.18.2-333-1
+ExecStop=/usr/local/bin/stop_papermc_server.sh papermc-1.18.2-333-1 papermc-1.18.2-333-1
 TimeoutStopSec=360
 
 [Install]
