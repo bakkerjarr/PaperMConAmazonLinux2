@@ -373,30 +373,30 @@ resource "aws_lambda_function" "lambda_nfpmc_ec2_stop" {
 }
 
 # EventBridge
-resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_start_monthu" {
-  name                = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_tag_name
-  description         = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_description
-  schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_sch_exp
-  event_bus_name      = "default"
-  is_enabled          = "true"
+# resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_start_monthu" {
+#   name                = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_tag_name
+#   description         = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_description
+#   schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_sch_exp
+#   event_bus_name      = "default"
+#   is_enabled          = "true"
 
-  tags = {
-    Name = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_tag_name
-  }
-}
-resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_start_monthu" {
-  rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_monthu.name
-  arn            = aws_lambda_function.lambda_nfpmc_ec2_start.arn
-  event_bus_name = "default"
-  target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_start_monthu_target_id
-}
-resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_start_monthu" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.lambda_nfpmc_ec2_start.function_name
-  principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_monthu.arn
-  statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_tag_name}"
-}
+#   tags = {
+#     Name = var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_tag_name
+#   }
+# }
+# resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_start_monthu" {
+#   rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_monthu.name
+#   arn            = aws_lambda_function.lambda_nfpmc_ec2_start.arn
+#   event_bus_name = "default"
+#   target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_start_monthu_target_id
+# }
+# resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_start_monthu" {
+#   action        = "lambda:InvokeFunction"
+#   function_name = aws_lambda_function.lambda_nfpmc_ec2_start.function_name
+#   principal     = "events.amazonaws.com"
+#   source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_start_monthu.arn
+#   statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_start_monthu_tag_name}"
+# }
 
 resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_start_fri" {
   name                = var.evntbrdgrule_lambda_nfpmc_ec2_start_fri_tag_name
@@ -448,30 +448,30 @@ resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_start
   statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_start_satsun_tag_name}"
 }
 
-resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_stop_monthu" {
-  name                = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_tag_name
-  description         = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_description
-  schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_sch_exp
-  event_bus_name      = "default"
-  is_enabled          = "true"
+# resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_stop_monthu" {
+#   name                = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_tag_name
+#   description         = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_description
+#   schedule_expression = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_sch_exp
+#   event_bus_name      = "default"
+#   is_enabled          = "true"
 
-  tags = {
-    Name = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_tag_name
-  }
-}
-resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_stop_monthu" {
-  rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu.name
-  arn            = aws_lambda_function.lambda_nfpmc_ec2_stop.arn
-  event_bus_name = "default"
-  target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_stop_monthu_target_id
-}
-resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_stop_monthu" {
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.lambda_nfpmc_ec2_stop.function_name
-  principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu.arn
-  statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_tag_name}"
-}
+#   tags = {
+#     Name = var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_tag_name
+#   }
+# }
+# resource "aws_cloudwatch_event_target" "evnrbrdgtarget_lambda_nfpmc_ec2_stop_monthu" {
+#   rule           = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu.name
+#   arn            = aws_lambda_function.lambda_nfpmc_ec2_stop.arn
+#   event_bus_name = "default"
+#   target_id      = var.evnrbrdgtarget_lambda_nfpmc_ec2_stop_monthu_target_id
+# }
+# resource "aws_lambda_permission" "lambdaperm_evntbrdgrule_lambda_nfpmc_ec2_stop_monthu" {
+#   action        = "lambda:InvokeFunction"
+#   function_name = aws_lambda_function.lambda_nfpmc_ec2_stop.function_name
+#   principal     = "events.amazonaws.com"
+#   source_arn    = aws_cloudwatch_event_rule.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu.arn
+#   statement_id  = "lambdaperm_${var.evntbrdgrule_lambda_nfpmc_ec2_stop_monthu_tag_name}"
+# }
 
 resource "aws_cloudwatch_event_rule" "evntbrdgrule_lambda_nfpmc_ec2_stop_fri" {
   name                = var.evntbrdgrule_lambda_nfpmc_ec2_stop_fri_tag_name
